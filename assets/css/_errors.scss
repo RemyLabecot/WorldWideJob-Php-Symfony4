@@ -1,0 +1,26 @@
+.error {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  vertical-align: middle;
+  height: 50vh;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  color: darken($darkblue, 10%);
+  font-size: 1.1rem;
+
+  .jumbo{
+    font-size: 5em;
+    color:$darkblue;
+  }
+
+  a{
+    display: block;
+    font-size: 1.1em;
+    color: lighten($darkblue, 10);
+    text-decoration: underline;
+    margin: 2vh;
+  }
+}

@@ -1,0 +1,9 @@
+{{ form_start(form) }}
+    {{ form_widget(form, { 'attr': {'class': 'formSkill'} }) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
+
+{% block javascripts %}
+{{ encore_entry_script_tags('selectWithSearch') }}
+{% endblock %}
+

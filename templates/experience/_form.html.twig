@@ -1,0 +1,29 @@
+{{ form_start(form) }}
+<div class="row d-flex align-items-baseline">
+    <div class="col-lg-6 col-12">
+        {{ form_row(form.name, { 'label': 'Nom de l\'experience :' }) }}
+    </div>
+    <div class="col-lg-6 col-12">
+        {{ form_row(form.companyBrand, { 'label': 'Nom de l\'entreprise :' }) }}
+    </div>
+</div>
+<div class="row d-flex align-items-baseline">
+    <div class="col-lg-6 col-12">
+        {{ form_row(form.beginDate, { 'label': 'Date de début :' }) }}
+    </div>
+    <div class="col-lg-6 col-12">
+        {{ form_row(form.endDate, { 'label': 'Date de fin :' }) }}
+    </div>
+</div>
+<div class="row d-flex align-items-baseline">
+    <div class="col-lg-6 col-12">
+        {{ form_row(form.place, { 'label': 'Lieu :' }) }}
+    </div>
+    <div class="col-lg-6 col-12">
+        {{ form_row(form.description, { 'label': 'Description :' }) }}
+    </div>
+</div>
+<button class="btn register_experience_btn">{{ button_label|default('Ajouter') }}</button>
+{{ form_end(form) }}
+
+

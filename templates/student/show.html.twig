@@ -1,0 +1,252 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Student{% endblock %}
+
+{% block body %}
+
+<div class="container studentName">
+    <h1>{{ student.firstname }} {{ student.lastname }}</h1>
+</div>
+
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+               aria-selected="true">Profil</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+               aria-selected="false">Experiences</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
+               aria-selected="false">Formation</a>
+        </li>
+        {% if is_granted('ROLE_STUDENT') and app.user.student == student %}
+            <li class="nav-item">
+                <a class="nav-link" id="favorite-tab" data-toggle="tab" href="#favorite" role="tab"
+                   aria-controls="favorite"
+                   aria-selected="false">Favoris</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="candidate-tab" data-toggle="tab" href="#candidate" role="tab"
+                   aria-controls="candidate"
+                   aria-selected="false">Candidatures</a>
+            </li>
+        {% endif %}
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-12">
+                        <div class="cardStudent" style="width: 18rem;">
+                            {% if student.imageName %}
+                            <img src="{{ asset('images/profil_student/' ~ student.imageName) }}" class="student-picture card-img-top" alt="...">
+                            {% else %}
+                            <img src="{{ asset('img/WWJ.png') }}" class="student-picture card-img-top" alt="...">
+                            {% endif %}
+                            <div class="card-body">
+                                <ul class="list-group">
+                                    {% for skill in student.skills %}
+                                        <li class="list-group-item">{{ skill.name }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-12 student2">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <th>Civilité</th>
+                                <td>{{ student.civility }}</td>
+                            </tr>
+                            <tr>
+                                <th>Civilité</th>
+                                <td>{{ student.birthdate|date('d-m-Y') }}</td>
+                            </tr>
+                            <tr>
+                                <th>Numéro INE</th>
+                                <td>{{ student.ine }}</td>
+                            </tr>
+                            <tr>
+                                <th>Téléphone</th>
+                                <td>{{ student.phone }}</td>
+                            </tr>
+                            <tr>
+                                <th>Adresse</th>
+                                <td>{{ student.address1 }}</td>
+                            </tr>
+                            <tr>
+                                <th>Complément d'adresse</th>
+                                <td>{{ student.address2 }}</td>
+                            </tr>
+                            <tr>
+                                <th>Code postal</th>
+                                <td>{{ student.zipcode }}</td>
+                            </tr>
+                            <tr>
+                                <th>Ville</th>
+                                <td>{{ student.city }}</td>
+                            </tr>
+                            <tr>
+                                <th>Pays</th>
+                                <td>{{ student.country }}</td>
+                            </tr>
+                            <tr>
+                                <th>Créé le</th>
+                                <td>{{ student.created ? student.created|date('d-m-Y s:i:H') : '' }}</td>
+                            </tr>
+                            <tr>
+                                <th>Mis à jour le</th>
+                                <td>{{ student.updated ? student.updated|date('d-m-Y H:i:s') : '' }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <div class="container">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Nom de l'entreprise</th>
+                        <th>Date de début</th>
+                        <th>Date de fin</th>
+                        <th>Lieu</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for experience in student.experiences %}
+                        <tr>
+                            <td>{{ experience.name }}</td>
+                            <td>{{ experience.companyBrand }}</td>
+                            <td>{{ experience.beginDate|date("d/m/Y") }}</td>
+                            <td>{{ experience.endDate|date("d/m/Y") }}</td>
+                            <td>{{ experience.place }}</td>
+                            <td>{{ experience.description }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="16">Pas d'expérience enregistrée</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+            <div class="container">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Diplome</th>
+                        <th>Domaine</th>
+                        <th>Date de début</th>
+                        <th>Date de fin</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for formation in student.formations %}
+                        <tr>
+                            <td>{{ formation.formationName }}</td>
+                            <td>{{ formation.diploma }}</td>
+                            <td>{{ formation.domain }}</td>
+                            <td>{{ formation.beginDate|date("d/m/Y") }}</td>
+                            <td>{{ formation.endDate|date("d/m/Y") }}</td>
+                            <td>{{ formation.description }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="16">Pas de formation enregistrée</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="favorite" role="tabpanel" aria-labelledby="favorite-tab">
+            <div class="container">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Titre</th>
+                        <th>Poste</th>
+                        <th>Date de debut</th>
+                        <th>Salaire</th>
+                        <th>Type</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    {% if is_granted('ROLE_STUDENT') %}
+                    <tbody>
+                    {% for offer in app.user.student.favorite %}
+                        <tr>
+                            <td>{{ offer.title }}</td>
+                            <td>{{ offer.job }}</td>
+                            <td>{{ offer.begin|date("d/m/Y") }}</td>
+                            <td>{{ offer.salary }}</td>
+                            <td>{{ offer.type }}</td>
+                            <td><a href="{{ path('offer_show', {'id': offer.id}) }}" class="btn btn-primary btn-sm">Voir
+                                    l'offre</a></td>
+                            <td><a href="{{ path('delete_favorite', {'id': offer.id}) }}"
+                                   class="btn btn-danger btn-sm">Supprimer</a></td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="16">Vous n'avez pas de favoris.</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="candidate" role="tabpanel" aria-labelledby="candidate-tab">
+            <div class="container">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Titre</th>
+                        <th>Poste</th>
+                        <th>Date de debut</th>
+                        <th>Salaire</th>
+                        <th>Type</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for offer in app.user.student.applicant %}
+                        <tr>
+                            <td>{{ offer.title }}</td>
+                            <td>{{ offer.job }}</td>
+                            <td>{{ offer.begin|date("d/m/Y") }}</td>
+                            <td>{{ offer.salary }}</td>
+                            <td>{{ offer.type }}</td>
+                            <td><a href="{{ path('offer_show', {'id': offer.id}) }}" class="btn btn-primary btn-sm">Voir
+                                    l'offre</a></td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="16">Vous n'avez aucune candidature.</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row card-footer text-muted">
+            {% if is_granted('ROLE_STUDENT')  and app.user.student == student %}
+                <a href="{{ path('student_edit', {'id': student.id}) }}" class="btn btn-primary">Modifier le profil</a>
+                {{ include('student/_delete_form.html.twig') }}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

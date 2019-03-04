@@ -1,0 +1,25 @@
+<h1>{{ student.firstname }} {{ student.lastname }}</h1>
+<table class="table">
+    <tbody>
+    <tr>
+        <th>Téléphone</th>
+        <td>{{ student.phone }}</td>
+    </tr>
+    <tr>
+        <th>Email</th>
+        <td>{{ student.user.email }}</td>
+    </tr>
+    <tr>
+        <th>Compétences</th>
+        <td>{% for skill in student.skills %}{{ skill.name }} | {% endfor %}</td>
+    </tr>
+    <tr>
+        <th>Ville</th>
+        <td>{{ student.city }}</td>
+    </tr>
+    <tr>
+        <th>Pays</th>
+        <td>{{ student.country }}</td>
+    </tr>
+    </tbody>
+</table>

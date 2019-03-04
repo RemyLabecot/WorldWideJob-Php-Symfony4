@@ -1,0 +1,27 @@
+{{ form_start(form) }}
+<div class="row d-flex align-items-baseline">
+    <div class="col-lg-6 col-12">
+        {{ form_row(form.formationName, { 'label': 'Nom de la formation :' }) }}
+    </div>
+    <div class="col-lg-6 col-12">
+        {{ form_row(form.diploma, { 'label': 'Nom du diplome :' }) }}
+    </div>
+</div>
+<div class="row d-flex align-items-baseline">
+    <div class="col-lg-6 col-12">
+        {{ form_row(form.beginDate, { 'label': 'Date de début :' }) }}
+    </div>
+    <div class="col-lg-6 col-12">
+        {{ form_row(form.endDate, { 'label': 'Date de fin :' }) }}
+    </div>
+</div>
+<div class="row d-flex align-items-baseline">
+    <div class="col-lg-6 col-12">
+        {{ form_row(form.domain, { 'label': 'Domaine :' }) }}
+    </div>
+    <div class="col-lg-6 col-12">
+        {{ form_row(form.description, { 'label': 'Description :' }) }}
+    </div>
+</div>
+<button class="btn register_experience_btn">{{ button_label|default('Ajouter') }}</button>
+{{ form_end(form) }}

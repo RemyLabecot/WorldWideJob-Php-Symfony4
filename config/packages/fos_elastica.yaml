@@ -1,0 +1,46 @@
+# Read the documentation: https://github.com/FriendsOfSymfony/FOSElasticaBundle/blob/master/Resources/doc/setup.md
+fos_elastica:
+    clients:
+        default: { host: localhost, port: 9200 }
+    indexes:
+        app:
+            finder: ~
+            settings:
+                analysis:
+                    filter:
+                        french_elision:
+                            type: elision
+                            articles_case: true
+                            articles: [l, m, t, qu, n, s, j, d, c, jusqu, quoiqu, lorsqu, puisqu]
+                        french_stop:
+                            type: stop
+                            stopwords: _french_
+                        french_keywords:
+                            type: keyword_marker
+                            keywords:   []
+                        french_stemmer:
+                            type: stemmer
+                            language: light_french
+                    analyzer:
+                        my_analyzer:
+                            tokenizer: standard
+                            filter:
+                                french_elision,
+                                lowercase,
+                                french_stop,
+                                french_keywords,
+                                french_stemmer
+            types:
+                offer:
+                    properties:
+                        title: { boost: 4, analyzer: my_analyzer }
+                        job:  { boost: 4, analyzer: my_analyzer }
+                        description:
+                            boost: 2
+                        type:
+                    persistence:
+                        driver: orm
+                        model: App\Entity\Offer
+                        provider: ~
+                        finder: ~
+

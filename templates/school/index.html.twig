@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}School index{% endblock %}
+
+{% block body %}
+    <h1>School index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Address1</th>
+                <th>Address2</th>
+                <th>Zipcode</th>
+                <th>City</th>
+                <th>Country</th>
+                <th>Uai</th>
+                <th>Siret</th>
+                <th>Updated</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for school in schools %}
+            <tr>
+                <td>{{ school.id }}</td>
+                <td>{{ school.name }}</td>
+                <td>{{ school.description }}</td>
+                <td>{{ school.phone }}</td>
+                <td>{{ school.email }}</td>
+                <td>{{ school.address1 }}</td>
+                <td>{{ school.address2 }}</td>
+                <td>{{ school.zipcode }}</td>
+                <td>{{ school.city }}</td>
+                <td>{{ school.country }}</td>
+                <td>{{ school.uai }}</td>
+                <td>{{ school.siret }}</td>
+                <td>{{ school.updated ? school.updated|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('school_show', {'id': school.id}) }}">show</a>
+                    <a href="{{ path('school_edit', {'id': school.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="14">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('school_new') }}">Create new</a>
+{% endblock %}

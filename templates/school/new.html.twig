@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New School{% endblock %}
+
+{% block body %}
+    {% form_theme form 'bootstrap_4_layout.html.twig' %}
+    <h1>Creez un profil</h1>
+
+
+    {{ include('school/_form.html.twig') }}
+
+{% endblock %}

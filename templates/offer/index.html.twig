@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des offres d'emploi{% endblock %}
+
+
+{% block body %}
+
+    <div class="container solid">
+        <h2 class="offer-title">Offres d'emploi en stage ou alternance</h2>
+        <div class="jumbotron">
+            {% form_theme form 'bootstrap_4_layout.html.twig' %}
+            {{ form_start(form) }}
+            <div class="row">
+                <div class="col-lg-6">
+                    {{ form_row(form.search_offer) }}
+                </div>
+                <div class="col-lg-6">
+                    {{ form_row(form.search_filter) }}
+                </div>
+                <div class="col-lg-4 btn-search">
+                    <button class="btn btn-primary" type="submit" name="btnSearch">Rechercher</button>
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+        <div class="row">
+            {% for offer in offers %}
+                <div class="col-12 col-sm-6 col-lg-4 d-flex align-items-stretch">
+                    <div class="card-content">
+                        <div class="card-img">
+                            {% if offer.company.imageName %}
+                            <img src="{{ asset('images/profil_company/' ~ offer.company.imageName) }}" alt="">
+                            {% else %}
+                                <img src="{{ asset('img/WWJ.png') }}" alt="...">
+                            {% endif %}
+                            <span class="{{ offer.type|lower }}"><h4>{{ offer.type }}</h4></span>
+                        </div>
+                        <div class="card-desc">
+                            <h3>{{ offer.title }}</h3>
+                            <em>{{ offer.begin|date('d-m-Y') }}</em>
+                            <p>{{ offer.description|slice(0,180) }}...</p>
+
+                            <a href="{{ path('offer_show', {'id': offer.id}) }}"
+                               class="btn btn-primary btn-card">Lire</a>
+                            {% if is_granted('ROLE_COMPANY')  and app.user.company == offer.company %}
+                                <a href="{{ path('offer_edit', {'id': offer.id}) }}" class="btn btn-warning">editer</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <td colspan="14">no records found</td>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

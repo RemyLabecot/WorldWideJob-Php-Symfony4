@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edition | Entreprise{% endblock %}
+
+{% block body %}
+    <div class="container solid">
+        {% form_theme form 'bootstrap_4_layout.html.twig' %}
+        <div class="container">
+            <h1>Entreprise</h1>
+
+            {{ include('company/_form.html.twig', {'button_label': 'Editer'}) }}
+            <div class="row d-flex align-items-baseline">
+                <a href="{{ path('company_profile') }}" class="btn btn-primary">Retour au profil</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

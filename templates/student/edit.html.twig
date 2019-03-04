@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Student{% endblock %}
+
+{% block body %}
+    {% form_theme form 'bootstrap_4_layout.html.twig' %}
+    <div class="container">
+    {{ include('student/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('editExperience') }}
+    {{ encore_entry_script_tags('editFormation') }}
+{% endblock %}

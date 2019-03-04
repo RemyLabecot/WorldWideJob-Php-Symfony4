@@ -1,0 +1,57 @@
+{{ form_start(form) }}
+
+
+<div class="row d-flex align-items-baseline">
+    <div class="col-lg-6 col-12">
+        {{ form_row(form.title, { 'label': 'Titre de l\'offre :' }) }}
+    </div>
+    <div class="col-lg-6 col-12">
+        {{ form_row(form.job, { 'label': 'Intitulé du poste :' }) }}
+    </div>
+</div>
+<div class="row d-flex align-items-baseline">
+    <div class="col-12">
+        {{ form_row(form.type, { 'label': 'Type de contrat :' }) }}
+    </div>
+</div>
+<div class="row d-flex align-items-baseline">
+    <div class="col-lg-4 col-12">
+        {{ form_row(form.jobDomain, { 'label': 'Secteur d\'activité :' }) }}
+    </div>
+    <div class="col-lg-4 col-12">
+        {{ form_row(form.begin, { 'label': 'Debut du contrat :' }) }}
+    </div>
+    <div class="col-lg-4 col-12">
+        {{ form_row(form.duration, { 'label': 'Durée du contrat :' }) }}
+    </div>
+</div>
+<div class="row d-flex align-items-baseline">
+    <div class="col-lg-4 col-12">
+        {{ form_row(form.salary, { 'label': 'Estimation de salaire ou gratification :' }) }}
+    </div>
+    <div class="col-lg-4 col-12">
+        {{ form_row(form.description, { 'label': 'Description du poste :' }) }}
+    </div>
+    <div class="col-lg-4 col-12">
+        {{ form_row(form.tutor, { 'label': 'Tuteur :' }) }}
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-4 col-12">
+        {{ form_row(form.drivingLicence, { 'label': 'Permis requis :' }) }}
+    </div>
+
+
+</div>
+<div class="row justify-content-around">
+
+    <button class="btn ">{{ button_label|default('Editer') }}</button>
+
+
+
+</div>
+
+
+
+{{ form_end(form) }}
+

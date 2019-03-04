@@ -1,0 +1,177 @@
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="profil-tab" data-toggle="tab" href="#profil" role="tab" aria-controls="home"
+           aria-selected="true">Profil</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="experience-tab" data-toggle="tab" href="#experience" role="tab" aria-controls="profile"
+           aria-selected="false">Experiences</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="formation-tab" data-toggle="tab" href="#formation" role="tab" aria-controls="contact"
+           aria-selected="false">Formation</a>
+    </li>
+</ul>
+<div class="tab-content editStudent" id="myTabContent">
+    <div class="tab-pane fade show active" id="profil" role="tabpanel" aria-labelledby="home-tab">{{ form_start(form) }}
+        <div class="row d-flex align-items-baseline">
+            <div class="col-lg-6 col-12">
+                {{ form_row(form.firstname, { 'label': 'Prénom :' }) }}
+            </div>
+            <div class="col-lg-6 col-12">
+                {{ form_row(form.lastname, { 'label': 'Nom :' }) }}
+            </div>
+        </div>
+        <div class="row d-flex align-items-baseline">
+            <div class="col-lg-3 col-12">
+                {{ form_row(form.birthdate, { 'label': 'Date de naissance :' }) }}
+            </div>
+            <div class="col-lg-4 col-12">
+                {{ form_row(form.civility, { 'label': 'Civilité :' }) }}
+            </div>
+            <div class="col-lg-4 col-12">
+                {{ form_row(form.phone, { 'label': 'Numero de téléphone :' }) }}
+            </div>
+        </div>
+        <div class="row d-flex align-items-baseline">
+            <div class="col-lg-6 col-12">
+                {{ form_row(form.address1, { 'label': 'Adresse :' }) }}
+            </div>
+            <div class="col-lg-6 col-12">
+                {{ form_row(form.address2, { 'label': 'Complément d\'adresse :' }) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-12">
+                {{ form_row(form.zipcode, { 'label': 'Code postal :' }) }}
+            </div>
+            <div class="col-lg-4 col-12">
+                {{ form_row(form.city, { 'label': 'Ville :' }) }}
+            </div>
+            <div class="col-lg-4 col-12">
+                {{ form_row(form.country, { 'label': 'Pays :' }) }}
+            </div>
+        </div>
+        <div class="row d-flex align-items-baseline">
+            <div class="col-lg-4 col-12">
+                {{ form_row(form.imageFile, { 'label': 'Photo :' }) }}
+            </div>
+            <div class="col-lg-4 col-12">
+                {{ form_row(form.ine, { 'label': 'Identifiant National Etudiant :' }) }}
+            </div>
+            <div class="col-lg-4 col-12">
+                {{ form_row(form.skills, { 'label': 'Compétences :' }) }}
+            </div>
+        </div>
+        <button class="btn">{{ button_label|default('S\'inscrire') }}</button>
+        {{ form_end(form) }}
+
+    </div>
+    <div class="tab-pane fade" id="experience" role="tabpanel" aria-labelledby="profile-tab">
+        <table class="table experience">
+            <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Nom de l'entreprise</th>
+                <th>Date de début</th>
+                <th>Date de fin</th>
+                <th>Lieu</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for experience in student.experiences %}
+                <tr>
+                    <td>{{ experience.name }}</td>
+                    <td>{{ experience.companyBrand }}</td>
+                    <td>{{ experience.beginDate|date("m/d/Y") }}</td>
+                    <td>{{ experience.endDate|date("m/d/Y") }}</td>
+                    <td>{{ experience.place }}</td>
+                    <td>{{ experience.description }}</td>
+                    <td>
+                        <button class="btn editexpbtn btn-primary">Editer</button>
+                        <form method="post" action="{{ path('experience_delete', {'id': experience.id}) }}"
+                              onsubmit="return confirm('Etes vous sur de vouloir supprimer cette expérience ?');">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ experience.id) }}">
+                            <button class="btnDelete">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="edit-form" colspan="7">
+                        {{ render(controller('App\\Controller\\ExperienceController:edit',
+                            {'experience': experience})) }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="16">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <a class="btn" href="{{ path('experience_new') }}">Ajouter</a>
+    </div>
+    <div class="tab-pane fade" id="formation" role="tabpanel" aria-labelledby="contact-tab">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Date de début</th>
+                <th>Date de fin</th>
+                <th>Nom de l'entreprise</th>
+                <th>Lieu</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for formation in student.formations %}
+                <tr>
+                    <td>{{ formation.formationName }}</td>
+                    <td>{{ formation.diploma }}</td>
+                    <td>{{ formation.domain }}</td>
+                    <td>{{ formation.beginDate|date("d/m/Y") }}</td>
+                    <td>{{ formation.endDate|date("d/m/Y") }}</td>
+                    <td>{{ formation.description }}</td>
+                    <td>
+                        <div class="row">
+                        <button class="EditFormationBtn btn btn-primary">Editer</button>
+                        <form method="post" action="{{ path('formation_delete', {'id': formation.id}) }}"
+                              onsubmit="return confirm('Etes vous sur de vouloir supprimer cette formation ?');">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ formation.id) }}">
+                            <button class="btnDelete">Supprimer</button>
+                        </form>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="Edit-Form-Formation" colspan="7">
+                        {{ render(controller('App\\Controller\\FormationController:edit',
+                            {'formation': formation})) }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="16">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <a class="btn" href="{{ path('formation_new') }}">Ajouter</a>
+    </div>
+</div>
+
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('redirectTabStudent') }}
+    {{ encore_entry_script_tags('appearNameFile') }}
+    {{ encore_entry_script_tags('selectWithSearch') }}
+{% endblock %}
+
+
+
+
+
+

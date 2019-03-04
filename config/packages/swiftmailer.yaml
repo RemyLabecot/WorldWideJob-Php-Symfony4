@@ -1,0 +1,5 @@
+parameters:
+    mailer_from: '%env(MAILER_FROM)%'
+swiftmailer:
+    url: '%env(MAILER_URL)%'
+    spool: { type: 'memory' }

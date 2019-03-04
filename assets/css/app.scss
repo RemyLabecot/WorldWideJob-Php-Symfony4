@@ -1,0 +1,346 @@
+// customize some Bootstrap variables
+$darkblue: #3796bf;
+$lightblue: #4bb5d9;
+$orange: #ff9900;
+$bluefund: #f0eff2;
+$darkgrey: #383d41;
+
+
+// the ~ allows you to reference things in node_modules
+@import "~bootstrap/scss/bootstrap";
+@import "~select2/src/scss/core";
+@import "~@fortawesome/fontawesome-free/css/all.css";
+
+@font-face {
+  font-family: "Arimo";
+  src: url('/Arimo/Arimo-BoldItalic-Latin.ttf');
+}
+
+@font-face {
+  font-family: "Arimo";
+  font-style: italic;
+  src: url('/Arimo/Arimo-Italic-Latin.ttf.ttf');
+}
+
+@font-face {
+  font-family: "Arimo";
+  font-weight: bold;
+  src: url('/Arimo/Arimo-Bold-Latin.ttf.ttf');
+}
+
+@font-face {
+  font-family: "Arimo";
+  font-weight: bold;
+  src: url('/Arimo/Arimo-Regular-Latin.ttf');
+}
+
+@import "company-profile";
+@import "cards";
+@import "_footer.scss";
+@import "student_profile";
+@import "_errors";
+
+
+// CSS
+
+body {
+  font-family: "Arimo", sans-serif;
+  background-color: #F5F5F5;
+}
+
+.navbar {
+  background-color: $darkblue;
+  box-shadow: 0 0 16px;
+}
+
+.subscribe {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: $orange;
+}
+
+.subscribe-div {
+  margin: auto;
+  background-color: rgba(darken($darkblue, 90%), 0.6);
+  width: 60%;
+  border-radius: 10px;
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.5);
+
+  .subscribe_sentence.card-title {
+    padding: 1.8rem;
+    text-align: center;
+    color: white;
+
+    h2 {
+      font-size: 2.2em;
+    }
+  }
+
+  .button-subscription {
+    flex-direction: column;
+    display: flex;
+
+    .register {
+      margin-bottom: 10px;
+    }
+
+    @include media-breakpoint-up(lg) {
+      flex-direction: row;
+      justify-content: space-around;
+      .register {
+        max-width: 30%;
+      }
+    }
+  }
+
+  .card-footer {
+    color: white;
+    font-size: 1.8rem;
+    text-align: justify;
+  }
+}
+
+.textTitle {
+  text-align: center;
+  font-family: Arimo, sans-serif;
+  font-size: 1.4rem;
+}
+
+.entity {
+  margin-top: 0;
+  padding-top: 5%;
+  background-size: cover;
+  min-height: 100vh;
+  height: 100%;
+  background-position: center;
+  background-image: url("https://res.cloudinary.com/dtpfajz6i/image/upload/c_scale,h_800,w_1300/v1543831703/background_img.jpg");
+  background-repeat: no-repeat;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+
+.edit-form {
+  display: none;
+}
+
+.Edit-Form-Formation {
+  display: none;
+}
+
+.deleteBtn {
+  background-color: red;
+}
+
+.cardCompany {
+  margin-top: 20px;
+}
+
+.schoolProfile {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.border_right {
+  border-right: 1px solid black;
+}
+
+.loginBody {
+  background-color: #f5f5f5;
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+}
+
+.login-block {
+  background-color: #FFFFFF;
+  float: left;
+  width: 100%;
+  padding: 40px 0;
+  margin-top: 50px;
+  border-radius: 20px;
+  box-shadow: 3px 3px 6px -1px #808080;
+}
+
+.banner-sec {
+  background: url(https://static.pexels.com/photos/33972/pexels-photo.jpg) no-repeat left bottom;
+  background-size: cover;
+  min-height: 500px;
+  border-radius: 10px 10px 10px 10px;
+  padding: 0;
+}
+
+
+.carousel-caption {
+  text-align: left;
+  left: 5%;
+}
+
+.login-sec {
+  padding: 50px 30px;
+  position: relative;
+}
+
+.login-sec .copy-text {
+  position: absolute;
+  width: 80%;
+  bottom: 20px;
+  font-size: 13px;
+  text-align: center;
+}
+
+.login-sec .copy-text i {
+  color: #000000;
+}
+
+.login-sec .copy-text a {
+  color: #000000;
+}
+
+.login-sec h2 {
+  margin-bottom: 30px;
+  font-weight: 800;
+  font-size: 30px;
+  color: #000000;
+}
+
+.login-sec h2:after {
+  content: " ";
+  width: 100px;
+  height: 5px;
+  background: $orange;
+  display: block;
+  margin-top: 20px;
+  border-radius: 3px;
+  margin-left: auto;
+  margin-right: auto
+}
+
+.btn-login {
+  background: #3796bf;
+  color: #fff;
+  font-weight: 600;
+}
+
+.banner-text {
+  width: 70%;
+  position: absolute;
+  bottom: 40px;
+  padding-left: 20px;
+}
+
+.banner-text {
+  h2 {
+    color: #fff;
+    font-weight: 600;
+
+    &:after {
+      content: " ";
+      width: 100px;
+      height: 5px;
+      background: #FFF;
+      display: block;
+      margin-top: 20px;
+      border-radius: 3px;
+
+    }
+  }
+
+  p {
+    color: #fff;
+  }
+}
+
+.profil_picture {
+  width: 100%;
+  height: auto;
+}
+
+.circle_candidates {
+  border-radius: 49.9%;
+  border: 2px solid transparent;
+  height: 56px;
+  width: 56px;
+}
+
+.link_candidates {
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+  transition: background-color .3s;
+
+  &:hover {
+    text-decoration: none;
+    background-color: lighten($primary, 40%);
+  }
+
+  .title {
+    color: black;
+  }
+}
+
+.no_point {
+  list-style-type: none;
+}
+
+.offerShowEditBtn {
+  margin-right: 100px;
+}
+
+.offerShowFavoriteBtn {
+  margin-right: 10px;
+  margin-bottom: -30px;
+}
+.offerShowCandidateBtn {
+  margin-left: 30px;
+  margin-bottom: -30px;
+}
+
+.offerBack {
+  margin-bottom: 30px;
+  margin-top: -40px;
+}
+
+.card-footer:last-child {
+  margin-right: 0;
+}
+
+.offerEditBlock {
+  justify-content: center;
+  margin: 30px;
+}
+.offerEditContainer {
+  background-color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 91px;
+  border-radius: 5px;
+}
+
+.custom-file-label {
+  &::after {
+    content: "Parcourir";
+  }
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: white;
+  &:hover{
+    color: $orange;
+  }
+}
+
+.imgCompany {
+  max-width: 500px;
+  max-height: 257px;
+}
+
+.offer-title {
+  font-family: "Arimo", sans-serif;
+  text-align: center;
+  position: center;
+}
+
+.btn-search {
+  display: flex;
+  align-items: center;
+}

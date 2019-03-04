@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid entity">
+        <div class="subscribe-div card">
+            <div class="subscribe_sentence card-title">
+                <h2>Plus besoin de traverser la rue, WorldWideJob est là !</h2>
+            </div>
+            <div class="button-subscription card-body">
+                <button type="button" class="btn btn-primary register" data-toggle="modal" data-target="#modal-role"
+                        data-role="ROLE_STUDENT">Je suis étudiant
+                </button>
+                <button type="button" class="btn btn-primary register" data-toggle="modal" data-target="#modal-role"
+                        data-role="ROLE_COMPANY">Je suis une entreprise
+                </button>
+                <button type="button" class="btn btn-primary register" data-toggle="modal" data-target="#modal-role"
+                        data-role="ROLE_SCHOOL">Je suis une formation
+                </button>
+            </div>
+            <div class="container card-footer">
+                <p class="textTitle"><strong>World Wide Job est une plateforme de mise en relation entre des étudiants en recherche de
+                        stage, ou de contrat d'alternance, des entreprises, et des organismes de formation.</strong></p>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal fade" id="modal-role" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Inscription</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% form_theme form 'bootstrap_4_layout.html.twig' %}
+                {{ form_start(form) }}
+                <div class="modal-body">
+                    <div class="form-group">
+                        {{ form_row(form.email) }}
+                        {{ form_row(form.role) }}
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                    <button type="submit" class="btn btn-primary">{{ button_label|default('Envoyer') }}</button>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('earlyBird') }}
+{% endblock %}

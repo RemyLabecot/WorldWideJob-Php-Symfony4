@@ -1,0 +1,164 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Offer{% endblock %}
+
+{% block body %}
+<div class="container solid">
+    <a href="{{ path('offer_index') }}" class="btn btn-primary offerBack">Revenir à la liste des offres</a>
+    <div class="row">
+        <div class="col-12">
+            <h2>{{ offer.title }}</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-lg-6 border_right">
+            <p>
+                <strong>Intitulé du poste :</strong>
+                <span>{{ offer.job }}</span>
+            </p>
+            <p>
+                <strong>A propos du poste :</strong>
+                <span>{{ offer.description }}</span>
+            </p>
+            <p>
+                <strong>Type de contrat :</strong>
+                <span>{{ offer.type }}</span>
+            </p>
+            <p>
+                <strong>Début de l'offre :</strong>
+                <span>{{ offer.begin|date('Y-m-d') }}</span>
+            </p>
+            <p>
+                <strong>Durée de l'offre :</strong>
+                <span>{{ offer.duration }}</span>
+            </p>
+            <p>
+                <strong>Secteur :</strong>
+                <span>{{ offer.jobDomain }}</span>
+            </p>
+            <p>
+                <strong>Estimation de salaire ou gratification :</strong>
+                <span>{{ offer.salary }}</span>
+            </p>
+            <p>
+                <strong>Tuteur :</strong>
+                <span>{{ offer.tutor }}</span>
+            </p>
+            <p>
+                <strong>Permis requis :</strong>
+                <span>{{ offer.drivingLicence }}</span>
+            </p>
+            <p>
+                <strong>Entreprise</strong>
+                <span>{{ offer.company.name }}</span>
+            </p>
+            <p>
+                <strong>Créé le</strong>
+                <span>{{ offer.created ? offer.created|date('Y-m-d H:i:s') : '' }}</span>
+            </p>
+            <p>
+                <strong>Mis à jour le</strong>
+                <span>{{ offer.updated ? offer.updated|date('Y-m-d H:i:s') : '' }}</span>
+            </p>
+        </div>
+        {% if app.user is not null %}
+        {% if is_granted('ROLE_COMPANY') and offer in app.user.company.offers %}
+        <div class="col-6">
+            <h2>Liste des postulants :</h2>
+            <ul class="no_point">
+                {% for candidate in offer.candidates %}
+                <li>
+                    <a href="{{ path('offer_index') }}" class="link_candidates" data-toggle="modal"
+                       data-target="#ModalCenter" data-candidates="{{ candidate.id }}">
+                        {% if candidate.imageName %}
+                        <img src="{{ asset('images/profil_student/' ~ candidate.imageName) }}"
+                             class="circle_candidates"/>
+                        {% else %}
+                            <img src="{{ asset('img/WWJ.png') }}"
+                                 class="circle_candidates"/>
+                        {% endif %}
+                        <h3 class="title">{{ candidate.firstname }} {{ candidate.lastname }}</h3>
+                    </a>
+                </li>
+                {% else %}
+                    <li>
+                        <p>Il n'y a pas de candidats pour cette offre</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="modal fade" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ModalLongTitle">Détails du candidat</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+            <div class="col-6">
+                <h2>{{ offer.company.name }}</h2>
+                <table class="table">
+                    <tbody>
+                    {% set logo_url = offer.company.imageName ? 'images/profil_company/'~ offer.company.imageName : 'img/WWJ.png' %}
+                    <img src="{{ asset(logo_url) }}" alt="" class="imgCompany"/>
+                    <p>
+                        <strong>Description de l'entreprise :</strong>
+                        <span>{{ offer.company.description }}</span>
+                    </p>
+                    <p>
+                        <strong>Coordonnés de l'entreprise :</strong>
+                        <span>{{ offer.company.phone }} {{ offer.company.address1 }} {{ offer.company.zipcode }} {{ offer.company.city }}</span>
+                    </p>
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </div>
+    <div class="row">
+        {% if is_granted('ROLE_COMPANY') and offer in app.user.company.offers %}
+
+            <a href="{{ path('offer_edit', {'id': offer.id}) }}" class="btn btn-warning offerShowEditBtn">editer</a>
+            {{ include('offer/_delete_form.html.twig') }}
+
+        {% elseif  is_granted('ROLE_STUDENT') %}
+            {% if offer not in app.user.student.favorite %}
+                <a href="{{ path('add_favorite', {'id': offer.id}) }}" class="btn btn-primary offerShowFavoriteBtn">Ajouter
+                    aux
+                    favoris</a>
+            {% else %}
+                <a href="{{ path('delete_favorite', {'id': offer.id}) }}" class="btn btn-danger offerShowFavoriteBtn">Retirer
+                    des
+                    favoris</a>
+            {% endif %}
+
+            {% if offer not in app.user.student.applicant %}
+                <a href="{{ path('add_candidate', {'id': offer.id}) }}" class="btn btn-primary offerShowCandidateBtn">Postuler</a>
+            {% else %}
+                <a href="{{ path('delete_candidate', {'id': offer.id}) }}" class="btn btn-danger offerShowCandidateBtn">Retirer
+                    candidature</a>
+            {% endif %}
+        {% else %}
+
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('modalCandidates') }}
+{% endblock %}

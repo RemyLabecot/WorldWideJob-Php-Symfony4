@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}School{% endblock %}
+
+{% block body %}
+    <div class="container schoolProfile">
+        <div class="row justify-content-center">
+
+            <div class="card text-center titleCard" style="width: 50rem;">
+                <h1 class="card-title">{{ school.name|upper }}</h1>
+                <div class="card-body">
+                    <img class="profil_picture" src="/images/profil_school/{{ school.imageName }}">
+                    <p class="card-text">{{ school.description }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+
+            <div class="card text-center titleCard" style="width: 50rem;">
+
+                <div class="card-body">
+                    <h3 class="card-title">Informations</h3>
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <th>Telephone:</th>
+                            <td>{{ school.phone }}</td>
+                        </tr>
+                        <tr>
+                            <th>Email:</th>
+                            <td>{{ school.email }}</td>
+                        </tr>
+                        <tr>
+                            <th>Addresse:</th>
+                            <td>{{ school.address1 }}, {{ school.address2 ~ ',' }} {{ school.city }}
+                                , {{ school.zipcode }}, {{ school.country }}</td>
+                        </tr>
+                        {% if school.siret is not empty %}
+                            <tr>
+                                <th> N° Siret:</th>
+                                <td>{{ school.siret }}</td>
+                            </tr>
+                        {% endif %}
+
+                        {% if school.uai is not empty %}
+                            <tr>
+                                <th>N° UAI:</th>
+                                <td>{{ school.uai }}</td>
+                            </tr>
+                        {% endif %}
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer text-muted">
+                    <div class="row justify-content-center">
+
+                    {% if is_granted('ROLE_SCHOOL')  and app.user.school == school %}
+                        <a href="{{ path('school_edit', {'id': school.id}) }}" class="btn btn-primary">Editer</a>
+                    {% endif %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+    </div>
+{% endblock %}

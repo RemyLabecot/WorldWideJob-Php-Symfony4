@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="error 404">
+        <p>
+            <div class="jumbo">Oops...</div>
+            La page que vous recherchez ne semble pas exister.
+            <a href="{{ path('offer_index') }}">
+                Retournez sur notre moteur de recherche
+            </a>
+            <em>À défaut de trouver la page de vos rêves, vous trouverez peut-être l'offre de stage ou d'alternance qui vous convient !</em>
+        </p>
+    </div>
+{% endblock %}

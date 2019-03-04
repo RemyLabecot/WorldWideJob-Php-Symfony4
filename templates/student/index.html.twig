@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Student index{% endblock %}
+
+{% block body %}
+    <h1>Student index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Lastname</th>
+                <th>Firstname</th>
+                <th>Birthdate</th>
+                <th>Ine</th>
+                <th>Phone</th>
+                <th>Address1</th>
+                <th>Address2</th>
+                <th>Zipcode</th>
+                <th>City</th>
+                <th>Country</th>
+                <th>Photo</th>
+                <th>Civility</th>
+                <th>Created</th>
+                <th>Updated</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for student in students %}
+            <tr>
+                <td>{{ student.id }}</td>
+                <td>{{ student.lastname }}</td>
+                <td>{{ student.firstname }}</td>
+                <td>{{ student.birthdate|date('Y-m-d') }}</td>
+                <td>{{ student.ine }}</td>
+                <td>{{ student.phone }}</td>
+                <td>{{ student.address1 }}</td>
+                <td>{{ student.address2 }}</td>
+                <td>{{ student.zipcode }}</td>
+                <td>{{ student.city }}</td>
+                <td>{{ student.country }}</td>
+                <td><img class="profil_picture" src="/images/profil_student/{{ student.imageName }}"></td>
+                <td>{{ student.civility }}</td>
+                <td>{{ student.created ? student.created|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ student.updated ? student.updated|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('student_show', {'id': student.id}) }}">show</a>
+                    <a href="{{ path('student_edit', {'student_id': student.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="16">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('student_new') }}">Create new</a>
+{% endblock %}
